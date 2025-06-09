@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual 3D Models with Custom Backgrounds and Autoplay</title>
+    <!-- Tailwind CSS CDN for responsive and utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS for global styling and layout adjustments */
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrollbars from appearing if content overflows */
+            font-family: "Inter", sans-serif;
+            min-height: 100vh; /* Ensures the body takes full viewport height */
+            display: flex;
+            /* Flex direction will be column on small screens, row on medium and up */
+            flex-direction: column;
+        }
+
+        /* Styles for each half of the screen */
+        .half-screen {
+            position: relative; /* Establishes positioning context for child overlays */
+            width: 100%; /* Full width on small screens */
+            height: 50vh; /* Half viewport height on small screens */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Media query for medium screens and up (md: prefix in Tailwind) */
+            /* Tailwind classes in HTML will handle width and height for md screens */
+        }
+
+        /* Shared styling for background images within each half-screen div */
+        .background-image {
+            position: absolute; /* Positions the background image relative to its parent .half-screen */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover; /* Ensures the image covers the entire area */
+            background-position: center; /* Centers the background image */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            z-index: 1; /* Places the background image behind the 3D model overlay */
+        }
+
+        /* Specific background image for the left half */
+        .background-image-left {
+            /* IMPORTANT: REPLACE THIS URL with the actual path to your left-side image. */
+            background-image: url('C:/Users/shoun/Downloads/left.png');
+        }
+
+        /* Specific background image for the right half */
+        .background-image-right {
+            /* IMPORTANT: REPLACE THIS URL with the actual path to your right-side image. */
+            background-image: url('C:/Users/shoun/Downloads/right.png');
+        }
+
+
+        /* Shared styling for model overlay containers */
+        .model-overlay {
+            /* These properties ensure the overlay takes up the full space of its flex parent (.half-screen) */
+            width: 100%; /* Take full width of its parent .half-screen */
+            height: 100%; /* Take full height of its parent .half-screen */
+            /* Removed max-width and max-height to allow it to fill */
+            z-index: 2; /* Places the 3D model above the background image */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.15); /* Slightly transparent background for model container */
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            /* Removed padding to allow the iframe to expand fully */
+            box-sizing: border-box; /* Include padding in the element's total width and height (though padding is removed here) */
+        }
+
+        .model-overlay iframe {
+            width: 100%;
+            /* Adjusted height to ensure the attribution text remains visible at the bottom of the embed area */
+            height: calc(100% - 40px);
+            border-radius: 0.5rem; /* Rounded corners for the iframe */
+        }
+
+        .model-overlay p {
+            font-size: 0.8rem; /* Smaller font size for attribution */
+            font-weight: normal;
+            margin-top: 0.5rem; /* Space above the attribution */
+            color: #ffffff; /* White text for better contrast on potentially dark backgrounds */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Text shadow for readability */
+            text-align: center;
+        }
+
+        .model-overlay p a {
+            font-weight: bold;
+            color: #93c5fd; /* Light blue link color for better visibility */
+            text-decoration: none;
+        }
+
+        .model-overlay p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media queries for larger screens */
+        @media (min-width: 768px) { /* md breakpoint in Tailwind */
+            body {
+                flex-direction: row; /* Layout columns side-by-side */
+            }
+            .half-screen {
+                width: 50vw; /* Each half takes 50% of viewport width */
+                height: 100vh; /* Each half takes full viewport height */
+            }
+            /* Add a border to the right side of the left half for the dividing line */
+            .half-screen-left {
+                border-right: 2px solid rgba(107, 114, 128, 0.5); /* md:border-r-2 md:border-gray-700 with transparency */
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900">
+    <!-- Left Half of the Screen -->
+    <div class="half-screen half-screen-left">
+        <!-- Background image for the left half -->
+        <div class="background-image background-image-left"></div>
+
+        <!-- Toyota Tacoma model embed wrapper -->
+        <div class="model-overlay">
+            <iframe
+                title="Toyota Tacoma Double Cab Limited 2001"
+                frameborder="0"
+                allowfullscreen
+                mozallowfullscreen="true"
+                webkitallowfullscreen="true"
+                allow="autoplay; fullscreen; xr-spatial-tracking"
+                xr-spatial-tracking
+                execution-while-out-of-viewport
+                execution-while-not-rendered
+                web-share
+                src="https://sketchfab.com/models/b924067a9344490b836d5cdd04308f9c/embed?autostart=1&transparent=1&fov=70&camera=10,10,10,0,0,0"
+                class="rounded-lg shadow-lg"
+            ></iframe>
+            <p class="text-xs sm:text-sm text-gray-200">
+                <a href="https://sketchfab.com/3d-models/toyota-tacoma-double-cab-limited-2001-b924067a9344490b836d5cdd04308f9c?utm_medium=embed&utm_campaign=share-popup&utm_content=b924067a9344490b836d5cdd04308f9c" target="_blank" rel="nofollow">Toyota Tacoma Double Cab Limited 2001</a>
+                by <a href="https://sketchfab.com/niev?utm_medium=embed&utm_campaign=share-popup&utm_content=b924067a9344490b836d5cdd04308f9c" target="_blank" rel="nofollow">Nieve5677</a>
+                on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=b924067a9344490b836d5cdd04308f9c" target="_blank" rel="nofollow">Sketchfab</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Right Half of the Screen -->
+    <div class="half-screen half-screen-right">
+        <!-- Background image for the right half -->
+        <div class="background-image background-image-right"></div>
+
+        <!-- Ford F-150 model embed wrapper -->
+        <div class="model-overlay">
+            <iframe
+                title="Ford F-150 Raptor 2024"
+                frameborder="0"
+                allowfullscreen
+                mozallowfullscreen="true"
+                webkitallowfullscreen="true"
+                allow="autoplay; fullscreen; xr-spatial-tracking"
+                xr-spatial-tracking
+                execution-while-out-of-viewport
+                execution-while-not-rendered
+                web-share
+                src="https://sketchfab.com/models/44aca8c1f90649839cecb4479cc09a6e/embed?autostart=1&transparent=1&fov=70"
+                class="rounded-lg shadow-lg"
+            ></iframe>
+            <p class="text-xs sm:text-sm text-gray-200">
+                <a href="https://sketchfab.com/3d-models/ford-f-150-raptor-2024-44aca8c1f90649839cecb4479cc09a6e?utm_medium=embed&utm_campaign=share-popup&utm_content=44aca8c1f90649839cecb4479cc09a6e" target="_blank" rel="nofollow">Ford F-150 Raptor 2024</a>
+                by <a href="https://sketchfab.com/zifir3d?utm_medium=embed&utm_campaign=share-popup&utm_content=44aca8c1f90649839cecb4479cc09a6e" target="_blank" rel="nofollow">zifir3d</a>
+                on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=44aca8c1f90649839cecb4479cc09a6e" target="_blank" rel="nofollow">Sketchfab</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
